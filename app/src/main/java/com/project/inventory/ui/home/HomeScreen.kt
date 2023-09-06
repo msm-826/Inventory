@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import com.project.inventory.InventoryTopAppBar
 import com.project.inventory.R
 import com.project.inventory.data.Item
+import com.project.inventory.ui.item.formattedPrice
 import com.project.inventory.ui.navigation.NavigationDestination
 import com.project.inventory.ui.theme.InventoryTheme
 
@@ -150,8 +151,7 @@ private fun InventoryItem(
                 )
                 Spacer(Modifier.weight(1f))
                 Text(
-                    /*item.formatedPrice()*/
-                    text = item.price.toString(),
+                    text = item.formattedPrice(),
                     style = MaterialTheme.typography.titleMedium
                 )
             }
