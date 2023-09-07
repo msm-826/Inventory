@@ -5,9 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.project.inventory.data.Item
+import com.project.inventory.data.ItemsRepository
 import java.text.NumberFormat
 
-class ItemEntryViewModel : ViewModel() {
+class ItemEntryViewModel(
+    private val itemsRepository: ItemsRepository
+) : ViewModel() {
 
     var itemUiState by mutableStateOf(ItemUiState())
         private set
@@ -22,6 +25,13 @@ class ItemEntryViewModel : ViewModel() {
             name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
         }
     }
+
+    suspend fun saveItem() {
+        if (validateInput()) {
+            itemsRepository.insertItem(itemUiState.itemDetails.toItem())
+        }
+    }
+
 }
 
 data class ItemUiState(
