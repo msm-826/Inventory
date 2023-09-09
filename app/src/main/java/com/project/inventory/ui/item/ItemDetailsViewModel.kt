@@ -25,7 +25,7 @@ class ItemDetailsViewModel(
                 ItemDetailsUiState(outOfStock = it.quantity <= 0, itemDetails = it.toItemDetails())
             }.stateIn(
                 scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(),
+                started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
                 initialValue = ItemDetailsUiState()
             )
 
@@ -38,6 +38,10 @@ class ItemDetailsViewModel(
                 ))
             }
         }
+    }
+
+    suspend fun deleteItem() {
+        itemsRepository.deleteItem(uiState.value.itemDetails.toItem())
     }
 
     companion object {
